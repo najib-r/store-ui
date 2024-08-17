@@ -15,10 +15,10 @@
     </v-row>
   </v-container>
   <v-toolbar class="fixed-bar px-2">
-    <v-btn block class="bg-green" @click="sheet = !sheet">
+    <v-btn block class="bg-green" @click="openCart">
       Cart (${{ data.calculateTotal() }})
     </v-btn>
-    <v-bottom-sheet v-model="sheet" inset>
+    <v-bottom-sheet v-model="cart" inset>
       <v-card
         class="text-center"
         height="200"
@@ -26,7 +26,7 @@
         <v-card-text>
           <v-btn
             variant="text"
-            @click="sheet = !sheet"
+            @click="cart = !cart"
           >
             close
           </v-btn>
@@ -53,9 +53,10 @@ import { useShoppingStore } from '../stores'
 import { ref } from 'vue'
 
 const data = useShoppingStore()
-const sheet = ref(false)
+const cart = ref(false)
 
 const openCart = () => {
+  cart.value = !cart.value
   console.log('open cart')
 }
 
