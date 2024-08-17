@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="4" v-for="product in data.products" :key="product.id">
+      <v-col cols="12" sm="4" v-for="product in data.products" :key="product.id">
         <v-card>
           <v-card-title>{{ product.name }}</v-card-title>
           <v-card-text>{{ product.price }}</v-card-text>
@@ -19,10 +19,7 @@
       Cart (${{ data.calculateTotal() }})
     </v-btn>
     <v-bottom-sheet v-model="cart" inset>
-      <v-card
-        class="text-center"
-        height="200"
-      >
+      <v-card class="text-center">
         <v-card-text>
           <v-btn
             variant="text"
@@ -31,15 +28,20 @@
             close
           </v-btn>
 
-          <br>
-          <br>
+          <div v-if="data.countCartItems === 0" class="text-red">
+            No items in the cart.
+          </div>
 
-          <div>
-            This is a bottom sheet that is using the inset prop
+          <div v-for="item in data.getCartItems">
+            {{ item }}
           </div>
         </v-card-text>
         <v-card-actions style="height: 64px;" class="py-4">
-          <v-btn block class="bg-green">
+          <v-btn
+            :disabled="data.countCartItems < 1"
+            block
+            class="bg-green"
+          >
             Order via Whatsapp (${{ data.calculateTotal() }})
           </v-btn>
         </v-card-actions>
