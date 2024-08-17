@@ -6,7 +6,7 @@
           <v-card-title>{{ product.name }}</v-card-title>
           <v-card-text>{{ product.price }}</v-card-text>
           <v-card-actions>
-            <v-btn @click="data.addToCart(product)">Add To Cart</v-btn>
+            <v-btn @click="data.addToCart(product), snackbar = true">Add To Cart</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -57,6 +57,22 @@
       </v-card>
     </v-bottom-sheet>
   </v-toolbar>
+  <v-snackbar
+    v-model="snackbar"
+    location="top"
+  >
+    Item added to cart!
+
+    <template v-slot:actions>
+      <v-btn
+        color="pink"
+        variant="text"
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script setup>
@@ -65,6 +81,7 @@ import { ref } from 'vue'
 
 const data = useShoppingStore()
 const cart = ref(false)
+const snackbar = ref(false)
 
 const openCart = () => {
   cart.value = !cart.value
