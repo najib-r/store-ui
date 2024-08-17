@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="12" sm="4" v-for="product in data.products" :key="product.id">
+      <v-col cols="12" sm="8" md="4" v-for="product in data.products" :key="product.id">
         <v-card>
           <v-card-title>{{ product.name }}</v-card-title>
           <v-card-text>{{ product.price }}</v-card-text>
@@ -10,8 +10,6 @@
           </v-card-actions>
         </v-card>
       </v-col>
-    </v-row>
-    <v-row>
     </v-row>
   </v-container>
   <v-toolbar class="fixed-bar px-2">
@@ -32,9 +30,20 @@
             No items in the cart.
           </div>
 
-          <div v-for="item in data.getCartItems">
-            {{ item }}
-          </div>
+          <v-row>
+            <v-col cols="12" sm="8" md="4" v-for="item in data.getCartItems">
+              <v-card>
+                <v-card-title>{{ item.name }}</v-card-title>
+                <v-card-text>{{ item.price }}</v-card-text>
+                <v-card-text>{{ item.quantity }}</v-card-text>
+                <v-card-actions>
+                  <v-btn @click="data.decrementQ(item)">-</v-btn>
+                  <v-btn @click="data.incrementQ(item)">+</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+          </v-row>
+
         </v-card-text>
         <v-card-actions style="height: 64px;" class="py-4">
           <v-btn
