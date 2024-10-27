@@ -51,6 +51,7 @@
             :disabled="data.countCartItems < 1"
             block
             class="bg-green"
+            @click="whatsappChat"
           >
             Order via Whatsapp (${{ data.calculateTotal() }})
           </v-btn>
@@ -79,7 +80,7 @@
 
 <script setup>
 import { useShoppingStore } from '../stores'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const data = useShoppingStore()
 const cart = ref(false)
@@ -87,7 +88,21 @@ const snackbar = ref(false)
 
 const openCart = () => {
   cart.value = !cart.value
-  console.log('open cart')
+}
+
+const whatsappText = computed(() => {
+  let text = 'Hello, here is my order:' + '\n' + '\n'
+  data.getCartItems.forEach(item => {
+    text += `${item.name} (${item.quantity})` + '\n'
+  })
+  return text
+})
+
+const whatsappChat = () => {
+  const encoded = encodeURI(whatsappText.value)
+  const url = `https://wa.me/?text=${encoded}`
+
+  window.open(url, '_blank')
 }
 
 </script>
