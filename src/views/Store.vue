@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="mb-16">
     <v-row>
       <v-col cols="12" sm="8" md="4" v-for="product in data.products" :key="product.id">
         <v-card>
@@ -37,6 +37,7 @@
                 <v-card-text>{{ item.price }}</v-card-text>
                 <v-card-text>{{ item.quantity }}</v-card-text>
                 <v-card-actions>
+                  <v-spacer></v-spacer>
                   <v-btn @click="data.decrementQ(item)">-</v-btn>
                   <v-btn @click="data.incrementQ(item)">+</v-btn>
                 </v-card-actions>
@@ -60,6 +61,7 @@
   <v-snackbar
     v-model="snackbar"
     location="top"
+    timeout="2000"
   >
     Item added to cart!
 
